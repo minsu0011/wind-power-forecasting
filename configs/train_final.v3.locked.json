@@ -1,0 +1,252 @@
+{
+  "schema_version": 1,
+  "recipe_name": "v3_locked_full_2025",
+  "recipe_locked": true,
+  "groups": [
+    "kpx_group_1",
+    "kpx_group_2",
+    "kpx_group_3"
+  ],
+  "seed": 42,
+  "n_jobs": 7,
+  "device": "cpu",
+  "models": {
+    "lgb_l1": {
+      "enabled": true,
+      "scope": "group",
+      "target_scale": "capacity_factor",
+      "objective": "l1",
+      "alpha": null,
+      "row_filter": "eligible",
+      "features": "all",
+      "sample_weight": {
+        "kind": "none"
+      },
+      "params": {
+        "n_estimators": 1500,
+        "learning_rate": 0.025,
+        "num_leaves": 31,
+        "min_child_samples": 30,
+        "subsample": 0.8,
+        "subsample_freq": 1,
+        "colsample_bytree": 0.75,
+        "reg_alpha": 0.05,
+        "reg_lambda": 2.0,
+        "verbosity": -1,
+        "deterministic": true,
+        "force_col_wise": true
+      }
+    },
+    "lgb_q07": {
+      "enabled": true,
+      "scope": "group",
+      "target_scale": "capacity_factor",
+      "objective": "quantile",
+      "alpha": 0.7,
+      "row_filter": "eligible",
+      "features": "all",
+      "sample_weight": {
+        "kind": "none"
+      },
+      "params": {
+        "n_estimators": 1500,
+        "learning_rate": 0.025,
+        "num_leaves": 31,
+        "min_child_samples": 30,
+        "subsample": 0.8,
+        "subsample_freq": 1,
+        "colsample_bytree": 0.75,
+        "reg_alpha": 0.05,
+        "reg_lambda": 2.0,
+        "verbosity": -1,
+        "deterministic": true,
+        "force_col_wise": true
+      }
+    },
+    "shared_l1": {
+      "enabled": true,
+      "scope": "shared",
+      "target_scale": "capacity_factor",
+      "objective": "l1",
+      "alpha": null,
+      "row_filter": "eligible",
+      "features": "all",
+      "sample_weight": {
+        "kind": "none"
+      },
+      "params": {
+        "n_estimators": 1500,
+        "learning_rate": 0.025,
+        "num_leaves": 31,
+        "min_child_samples": 40,
+        "subsample": 0.8,
+        "subsample_freq": 1,
+        "colsample_bytree": 0.75,
+        "reg_alpha": 0.05,
+        "reg_lambda": 2.0,
+        "verbosity": -1,
+        "deterministic": true,
+        "force_col_wise": true
+      }
+    },
+    "shared_q07": {
+      "enabled": true,
+      "scope": "shared",
+      "target_scale": "capacity_factor",
+      "objective": "quantile",
+      "alpha": 0.7,
+      "row_filter": "eligible",
+      "features": "all",
+      "sample_weight": {
+        "kind": "none"
+      },
+      "params": {
+        "n_estimators": 1500,
+        "learning_rate": 0.025,
+        "num_leaves": 31,
+        "min_child_samples": 40,
+        "subsample": 0.8,
+        "subsample_freq": 1,
+        "colsample_bytree": 0.75,
+        "reg_alpha": 0.05,
+        "reg_lambda": 2.0,
+        "verbosity": -1,
+        "deterministic": true,
+        "force_col_wise": true
+      }
+    },
+    "top200_q07": {
+      "enabled": true,
+      "scope": "group",
+      "target_scale": "capacity_factor",
+      "objective": "quantile",
+      "alpha": 0.7,
+      "row_filter": "eligible",
+      "features": {
+        "kind": "top_gain",
+        "source": "lgb_l1",
+        "top_k": 200
+      },
+      "sample_weight": {
+        "kind": "none"
+      },
+      "params": {
+        "n_estimators": 1500,
+        "learning_rate": 0.025,
+        "num_leaves": 31,
+        "min_child_samples": 30,
+        "subsample": 0.8,
+        "subsample_freq": 1,
+        "colsample_bytree": 0.85,
+        "reg_alpha": 0.05,
+        "reg_lambda": 2.0,
+        "verbosity": -1,
+        "deterministic": true,
+        "force_col_wise": true
+      }
+    },
+    "energy_q06": {
+      "enabled": true,
+      "scope": "group",
+      "target_scale": "capacity_factor",
+      "objective": "quantile",
+      "alpha": 0.6,
+      "row_filter": "eligible",
+      "features": "all",
+      "sample_weight": {
+        "kind": "energy_linear",
+        "base": 0.5,
+        "strength": 1.0
+      },
+      "params": {
+        "n_estimators": 1500,
+        "learning_rate": 0.025,
+        "num_leaves": 31,
+        "min_child_samples": 30,
+        "subsample": 0.8,
+        "subsample_freq": 1,
+        "colsample_bytree": 0.75,
+        "reg_alpha": 0.05,
+        "reg_lambda": 2.0,
+        "verbosity": -1,
+        "deterministic": true,
+        "force_col_wise": true
+      }
+    }
+  },
+  "ensemble": {
+    "weights": {
+      "kpx_group_1": {
+        "lgb_l1": 0.3,
+        "lgb_q07": 0.1,
+        "shared_l1": 0.13,
+        "shared_q07": 0.3,
+        "top200_q07": 0.0,
+        "energy_q06": 0.17
+      },
+      "kpx_group_2": {
+        "lgb_l1": 0.2,
+        "lgb_q07": 0.32,
+        "shared_l1": 0.0,
+        "shared_q07": 0.055,
+        "top200_q07": 0.425,
+        "energy_q06": 0.0
+      },
+      "kpx_group_3": {
+        "lgb_l1": 0.0,
+        "lgb_q07": 0.2,
+        "shared_l1": 0.075,
+        "shared_q07": 0.425,
+        "top200_q07": 0.025,
+        "energy_q06": 0.275
+      }
+    },
+    "affine": {
+      "kpx_group_1": {
+        "scale": 1.15,
+        "bias_kwh": -370.0
+      },
+      "kpx_group_2": {
+        "scale": 1.05,
+        "bias_kwh": -500.0
+      },
+      "kpx_group_3": {
+        "scale": 1.25,
+        "bias_kwh": -1200.0
+      }
+    },
+    "clip": {
+      "kpx_group_1": {
+        "lower_capacity_fraction": 0.0,
+        "upper_capacity_fraction": 1.02
+      },
+      "kpx_group_2": {
+        "lower_capacity_fraction": 0.0,
+        "upper_capacity_fraction": 1.02
+      },
+      "kpx_group_3": {
+        "lower_capacity_fraction": 0.0,
+        "upper_capacity_fraction": 1.02
+      }
+    },
+    "power_bins": {
+      "kpx_group_1": null,
+      "kpx_group_2": {
+        "edges_cf": [
+          0.0,
+          0.25,
+          0.5,
+          0.75,
+          1.02
+        ],
+        "delta_kwh": [
+          -400.0,
+          -1000.0,
+          1200.0,
+          -200.0
+        ]
+      },
+      "kpx_group_3": null
+    }
+  }
+}
