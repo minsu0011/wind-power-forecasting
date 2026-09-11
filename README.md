@@ -66,4 +66,6 @@ python -m pytest tests/test_metric.py -q
 
 `scripts/train_dev.py`가 개발 학습의 진입점입니다. 실제 학습에는 대회 원본과 특징 캐시가 필요합니다. 검증 결과를 이미 본 기간을 다시 독립 평가로 사용하지 않습니다.
 
-[개발 과정](docs/wiki/Development-Journey.md) · [모델과 target](docs/wiki/Model-Evolution.md) · [병목](docs/wiki/Bottlenecks-and-Solutions.md) · [평가와 결과](docs/wiki/Validation-and-Results.md)
+[개발 과정](https://github.com/minsu0011/wind-power-forecasting/wiki/Development-Journey) · [모델과 target](https://github.com/minsu0011/wind-power-forecasting/wiki/Model-Evolution) · [병목](https://github.com/minsu0011/wind-power-forecasting/wiki/Bottlenecks-and-Solutions) · [평가와 결과](https://github.com/minsu0011/wind-power-forecasting/wiki/Validation-and-Results)
+
+[Wiki 전체 보기](https://github.com/minsu0011/wind-power-forecasting/wiki) · [저장소 내 문서 사본](docs/wiki/Home.md)
